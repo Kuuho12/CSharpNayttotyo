@@ -591,7 +591,7 @@ namespace Nayttotyo
                         {
                             if (cellPosition[1] < realCheckingPieces[0].Place[1])
                             {
-                                for (int i = 0; cellPosition[1] + i < realCheckingPieces[0].Place[1]; i++)
+                                for (int i = 1; cellPosition[1] + i < realCheckingPieces[0].Place[1]; i++)
                                 {
                                     if (CanBlock([cellPosition[0], cellPosition[1] + i], kingColor))
                                     {
@@ -600,7 +600,7 @@ namespace Nayttotyo
                                 }
                             }
                             else
-                                for (int i = 0; cellPosition[1] - i > realCheckingPieces[0].Place[1]; i++)
+                                for (int i = 1; cellPosition[1] - i > realCheckingPieces[0].Place[1]; i++)
                                 {
                                     if (CanBlock([cellPosition[0], cellPosition[1] - i], kingColor))
                                     {
@@ -612,7 +612,7 @@ namespace Nayttotyo
                         {
                             if (cellPosition[0] < realCheckingPieces[0].Place[0])
                             {
-                                for (int i = 0; cellPosition[0] + i < realCheckingPieces[0].Place[0]; i++)
+                                for (int i = 1; cellPosition[0] + i < realCheckingPieces[0].Place[0]; i++)
                                 {
                                     if (CanBlock([cellPosition[0] + i, cellPosition[1]], kingColor))
                                     {
@@ -621,7 +621,7 @@ namespace Nayttotyo
                                 }
                             }
                             else
-                                for (int i = 0; cellPosition[0] - i > realCheckingPieces[0].Place[0]; i++)
+                                for (int i = 1; cellPosition[0] - i > realCheckingPieces[0].Place[0]; i++)
                                 {
                                     if (CanBlock([cellPosition[0] - i, cellPosition[1]], kingColor))
                                     {
@@ -943,22 +943,6 @@ namespace Nayttotyo
                     break;
                 }
             }
-            if ((occupiedTiles.Any(p => p.SequenceEqual([position[0], position[1] + 1]))))
-            {
-                controlCharArray = tableLayoutPanel1.GetControlFromPosition(position[0], position[1] + 1).Tag.ToString().ToCharArray();
-                if (controlCharArray[0] != kingColor && kingColor == 'B' && controlCharArray[1] == 'P')
-                {
-                    return true;
-                }
-            }
-            if ((occupiedTiles.Any(p => p.SequenceEqual([position[0], position[1] + 2]))) && position[1] == 1)
-            {
-                controlCharArray = tableLayoutPanel1.GetControlFromPosition(position[0] - 1, position[1] + 1).Tag.ToString().ToCharArray();
-                if (controlCharArray[0] != kingColor && kingColor == 'B' && controlCharArray[1] == 'P')
-                {
-                    return true;
-                }
-            }
             if ((occupiedTiles.Any(p => p.SequenceEqual([position[0], position[1] - 1]))))
             {
                 controlCharArray = tableLayoutPanel1.GetControlFromPosition(position[0], position[1] - 1).Tag.ToString().ToCharArray();
@@ -967,10 +951,26 @@ namespace Nayttotyo
                     return true;
                 }
             }
-            if ((occupiedTiles.Any(p => p.SequenceEqual([position[0], position[1] - 2]))) && position[1] == 6)
+            if ((occupiedTiles.Any(p => p.SequenceEqual([position[0], position[1] - 2]))) && position[1] == 1)
             {
                 controlCharArray = tableLayoutPanel1.GetControlFromPosition(position[0], position[1] - 2).Tag.ToString().ToCharArray();
                 if (controlCharArray[0] != kingColor && kingColor == 'W' && controlCharArray[1] == 'P')
+                {
+                    return true;
+                }
+            }
+            if ((occupiedTiles.Any(p => p.SequenceEqual([position[0], position[1] + 1]))))
+            {
+                controlCharArray = tableLayoutPanel1.GetControlFromPosition(position[0], position[1] + 1).Tag.ToString().ToCharArray();
+                if (controlCharArray[0] != kingColor && kingColor == 'B' && controlCharArray[1] == 'P')
+                {
+                    return true;
+                }
+            }
+            if ((occupiedTiles.Any(p => p.SequenceEqual([position[0], position[1] + 2]))) && position[1] == 6)
+            {
+                controlCharArray = tableLayoutPanel1.GetControlFromPosition(position[0], position[1] + 2).Tag.ToString().ToCharArray();
+                if (controlCharArray[0] != kingColor && kingColor == 'B' && controlCharArray[1] == 'P')
                 {
                     return true;
                 }
@@ -1665,8 +1665,7 @@ namespace Nayttotyo
             tableLayoutPanel1.SetCellPosition(clickedPiece, tableLayoutPanel1.GetCellPosition(control)); tableLayoutPanel1.SetCellPosition(clickedPiece, tableLayoutPanel1.GetCellPosition(control));
             occupiedTiles.Add([tableLayoutPanel1.GetCellPosition(control).Column, tableLayoutPanel1.GetCellPosition(control).Row]);
             //label1.Text = tableLayoutPanel1.GetCellPosition(control).Column.ToString() + tableLayoutPanel1.GetCellPosition(control).Row.ToString();
-            isWhitesTurn = !isWhitesTurn;
-            if (isWhitesTurn)
+            if (!isWhitesTurn)
             {
                 if (DidCheck([tableLayoutPanel1.GetColumn(WhiteKing), tableLayoutPanel1.GetRow(WhiteKing)]))
                 {
@@ -1676,7 +1675,7 @@ namespace Nayttotyo
                     IsCheckmate(WhiteKing, [tableLayoutPanel1.GetColumn(WhiteKing), tableLayoutPanel1.GetRow(WhiteKing)]);
                 }
             }
-            if (!isWhitesTurn)
+            if (isWhitesTurn)
             {
                 if (DidCheck([tableLayoutPanel1.GetColumn(BlackKing), tableLayoutPanel1.GetRow(BlackKing)]))
                 {
@@ -1686,6 +1685,7 @@ namespace Nayttotyo
                     IsCheckmate(BlackKing, [tableLayoutPanel1.GetColumn(BlackKing), tableLayoutPanel1.GetRow(BlackKing)]);
                 }
             }
+            isWhitesTurn = !isWhitesTurn;
 
         }
         public void DeleteMoveSignals()
