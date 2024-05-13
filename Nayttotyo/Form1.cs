@@ -558,6 +558,7 @@ namespace Nayttotyo
                     }
                     if (realCheckingPieces[0].Piece == 'H')
                     {
+                        break;
                         for (int i = -1; i < 2; i++)
                         {
                             for (int j = -1; j < 2; j++)
@@ -1639,32 +1640,13 @@ namespace Nayttotyo
                 tableLayoutPanel1.Controls.Remove(control); tableLayoutPanel1.Controls.Remove(control);
                 occupiedTiles.RemoveAll(s => s.SequenceEqual([tableLayoutPanel1.GetCellPosition(clickedPiece).Column, tableLayoutPanel1.GetCellPosition(clickedPiece).Row]));
                 tableLayoutPanel1.SetCellPosition(clickedPiece, tableLayoutPanel1.GetCellPosition(control)); tableLayoutPanel1.SetCellPosition(clickedPiece, tableLayoutPanel1.GetCellPosition(control));
-                //label1.Text = "Noniiin";
-                if (isWhitesTurn)
-                {
-                    if (DidCheck([tableLayoutPanel1.GetColumn(BlackKing), tableLayoutPanel1.GetRow(BlackKing)]))
-                    {
-                        IsInCheck = true;
-                        BlackKing.BackColor = Color.Red;
-                        piecesInDanger.Add([tableLayoutPanel1.GetColumn(BlackKing), tableLayoutPanel1.GetRow(BlackKing)]);
-                        IsCheckmate(BlackKing, [tableLayoutPanel1.GetColumn(BlackKing), tableLayoutPanel1.GetRow(BlackKing)]);
-                    }
-                }
-                else
-                    if (DidCheck([tableLayoutPanel1.GetColumn(WhiteKing), tableLayoutPanel1.GetRow(WhiteKing)]))
-                {
-                    IsInCheck = true;
-                    WhiteKing.BackColor = Color.Red;
-                    piecesInDanger.Add([tableLayoutPanel1.GetColumn(WhiteKing), tableLayoutPanel1.GetRow(WhiteKing)]);
-                    IsCheckmate(WhiteKing, [tableLayoutPanel1.GetColumn(WhiteKing), tableLayoutPanel1.GetRow(WhiteKing)]);
-                }
-                isWhitesTurn = !isWhitesTurn;
-                return;
             }
-            occupiedTiles.RemoveAll(s => s.SequenceEqual([tableLayoutPanel1.GetCellPosition(clickedPiece).Column, tableLayoutPanel1.GetCellPosition(clickedPiece).Row]));
-            tableLayoutPanel1.SetCellPosition(clickedPiece, tableLayoutPanel1.GetCellPosition(control)); tableLayoutPanel1.SetCellPosition(clickedPiece, tableLayoutPanel1.GetCellPosition(control));
-            occupiedTiles.Add([tableLayoutPanel1.GetCellPosition(control).Column, tableLayoutPanel1.GetCellPosition(control).Row]);
-            //label1.Text = tableLayoutPanel1.GetCellPosition(control).Column.ToString() + tableLayoutPanel1.GetCellPosition(control).Row.ToString();
+            else
+            {
+                occupiedTiles.RemoveAll(s => s.SequenceEqual([tableLayoutPanel1.GetCellPosition(clickedPiece).Column, tableLayoutPanel1.GetCellPosition(clickedPiece).Row]));
+                tableLayoutPanel1.SetCellPosition(clickedPiece, tableLayoutPanel1.GetCellPosition(control)); tableLayoutPanel1.SetCellPosition(clickedPiece, tableLayoutPanel1.GetCellPosition(control));
+                occupiedTiles.Add([tableLayoutPanel1.GetCellPosition(control).Column, tableLayoutPanel1.GetCellPosition(control).Row]);
+            }
             if (!isWhitesTurn)
             {
                 if (DidCheck([tableLayoutPanel1.GetColumn(WhiteKing), tableLayoutPanel1.GetRow(WhiteKing)]))
