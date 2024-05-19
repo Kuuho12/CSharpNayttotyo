@@ -37,10 +37,17 @@ napattavaksi vaihtamalla sen taustaväriä punaiseksi.
 Eri nappuloiden liikkeiden hoitaminen vie paljon tilaa, tässä vain tornin liikkeiden hoito. Fuktio vie lähemmäs 500
 riviä tilaa.
 
+![screenshot](images/correct_isgonnacheck.png)
+
+IsGonnaCheck-funktio tekee muutoksia laudalla (tableLayoutPanel1) ja occupiedTiles-listaan kyseisen liikkeen mukaan ja
+tarkistaa sen jälkeen DidCheck-funktiolla johtaisiko liike oman kuninkaan shakkiin. Jos johtaa shakkiin, niin funktio
+palauttaa truen, jos ei niin falsen. Koska funtkio tekee muutoksia pelilaudalla eikä vaikka "pelilaudan varjolla" niin
+funktio on hidas.
+
 ![screenshot](images/moving.png)
 
 Moving-funktiota kutsutaan aina pistettä painettaessa tai napattavaa vastustajan nappulaa painettaessa. Aluksi
-suoritetaan DeleteMoveSignals, jonka jälkeen hoidetaan nappuloiden liikkeet laudalla (tableLayoutPanel1) ja muokataan
+suoritetaan DeleteMoveSignals, jonka jälkeen hoidetaan nappuloiden liikkeet laudalla ja muokataan
 occupiedTiles-lista paikkaansa pitäväksi. Sen jälkeen tarkistetaan shakitettiinko vastustajan kuningasta ja jos
 shakitettiin, niin syntyikö shakkimatti. Lopuksi vaihdetaan vuoroa muuttamalla globaalin isWhitesTurn-muuttujan arvoa.
 
