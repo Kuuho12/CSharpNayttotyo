@@ -69,13 +69,19 @@ namespace Nayttotyo
                 }
                 if ((occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0] - 1, cellPosition[1] - 1]))) && tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1] - 1).Tag.ToString()[0] == 'B')
                 {
-                    tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1] - 1).BackColor = Color.Red;
-                    piecesInDanger.Add([cellPosition[0] - 1, cellPosition[1] - 1]);
+                    if (!(IsGonnaCheck(WhiteKing, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 1, cellPosition[1] - 1])))
+                    {
+                        tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1] - 1).BackColor = Color.Red;
+                        piecesInDanger.Add([cellPosition[0] - 1, cellPosition[1] - 1]);
+                    }
                 }
                 if ((occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0] + 1, cellPosition[1] - 1]))) && tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1] - 1).Tag.ToString()[0] == 'B')
                 {
-                    tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1] - 1).BackColor = Color.Red;
-                    piecesInDanger.Add([cellPosition[0] + 1, cellPosition[1] - 1]);
+                    if (!(IsGonnaCheck(WhiteKing, [cellPosition[0], cellPosition[1]], [cellPosition[0] + 1, cellPosition[1] - 1])))
+                    {
+                        tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1] - 1).BackColor = Color.Red;
+                        piecesInDanger.Add([cellPosition[0] + 1, cellPosition[1] - 1]);
+                    }
                 }
                 return;
             }
@@ -102,13 +108,19 @@ namespace Nayttotyo
                 }
                 if ((occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0] - 1, cellPosition[1] + 1]))) && tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1] + 1).Tag.ToString()[0] == 'W')
                 {
-                    tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1] + 1).BackColor = Color.Red;
-                    piecesInDanger.Add([cellPosition[0] - 1, cellPosition[1] + 1]);
+                    if (!(IsGonnaCheck(BlackKing, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 1, cellPosition[1] + 1])))
+                    {
+                        tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1] + 1).BackColor = Color.Red;
+                        piecesInDanger.Add([cellPosition[0] - 1, cellPosition[1] + 1]);
+                    }
                 }
                 if ((occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0] + 1, cellPosition[1] + 1]))) && tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1] + 1).Tag.ToString()[0] == 'W')
                 {
-                    tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1] + 1).BackColor = Color.Red;
-                    piecesInDanger.Add([cellPosition[0] + 1, cellPosition[1] + 1]);
+                    if (!(IsGonnaCheck(BlackKing, [cellPosition[0], cellPosition[1]], [cellPosition[0] + 1, cellPosition[1] + 1])))
+                    {
+                        tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1] + 1).BackColor = Color.Red;
+                        piecesInDanger.Add([cellPosition[0] + 1, cellPosition[1] + 1]);
+                    }
                 }
                 return;
             }

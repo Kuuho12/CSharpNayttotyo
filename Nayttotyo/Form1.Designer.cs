@@ -67,7 +67,6 @@
             WhiteBishop2 = new PictureBox();
             WhiteBishop1 = new PictureBox();
             WhiteKnight1 = new PictureBox();
-            Dot = new PictureBox();
             Tiles = new ImageList(components);
             button1 = new Button();
             label1 = new Label();
@@ -105,7 +104,6 @@
             ((System.ComponentModel.ISupportInitialize)WhiteBishop2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)WhiteBishop1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)WhiteKnight1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)Dot).BeginInit();
             SuspendLayout();
             // 
             // notifyIcon1
@@ -601,17 +599,6 @@
             WhiteKnight1.Tag = "WH";
             WhiteKnight1.Click += WhiteKnight1_Click;
             // 
-            // Dot
-            // 
-            Dot.BackColor = Color.Transparent;
-            Dot.Image = (Image)resources.GetObject("Dot.Image");
-            Dot.Location = new Point(639, 217);
-            Dot.Name = "Dot";
-            Dot.Size = new Size(59, 58);
-            Dot.SizeMode = PictureBoxSizeMode.CenterImage;
-            Dot.TabIndex = 40;
-            Dot.TabStop = false;
-            // 
             // Tiles
             // 
             Tiles.ColorDepth = ColorDepth.Depth32Bit;
@@ -657,7 +644,6 @@
             Controls.Add(tableLayoutPanel1);
             Controls.Add(linkLabel1);
             Controls.Add(label1);
-            Controls.Add(Dot);
             Name = "Form1";
             Text = "Form1";
             tableLayoutPanel1.ResumeLayout(false);
@@ -693,7 +679,6 @@
             ((System.ComponentModel.ISupportInitialize)WhiteBishop2).EndInit();
             ((System.ComponentModel.ISupportInitialize)WhiteBishop1).EndInit();
             ((System.ComponentModel.ISupportInitialize)WhiteKnight1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)Dot).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -740,6 +725,5 @@
         private Button button1;
         private Label label1;
         private ImageList imageList1;
-        private PictureBox Dot;
     }
 }
