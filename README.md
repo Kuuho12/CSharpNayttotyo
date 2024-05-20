@@ -104,3 +104,12 @@ Jos shakittavia nappuloita on enemmän kuin yksi, niin funktio tarkistaa vain on
 funktio palaudu missään vaiheessa niin "Checkmate" teksti ilmestyy ja koska jokainen mahdollinen liike jättäisi kuniinkaan
 shakkiin ei mitään liikettä voi enää suorittaa. Peli on päättynyt ja sen voi aloittaa uudestaan käynistämällä ohjelma
 uudestaan.
+
+## Jatkokehitysideat
+
+Kun koodissa testataan joutuisiko oma kuninkaasi shakkiin jos sitä liikutetaan johonkin ruutuun IsGonnaCheck-funktiolla, 
+koodi oikeasti siirtää hetken ajaksi nappulan siihen ruutuun, tuhlaten paljon tehoa. Tämä kannattaisi muuttaa, eikä
+IsGonnaCheck-funktiota kannattaisi muutenkaan spammia joka ruudulle. Erikoissiirrot tornitus, en passant ja sotilaan
+parantaminen kuningattareksi voisi lisätä peliin. Pelitulokset voisi tallentaa tiedostoon. Peliin voisi lisätä myös
+kellot kummallenkin pelaajalle, josta kuluu aikaa omalla vuorolla ja kellon ajan loppuessa häviäisit. Myös "Pelaa'
+uudestaan"-nappula olisi hyvä lisäys.
