@@ -33,6 +33,7 @@ namespace Nayttotyo
         public void ClickingPiece(string piece, int[] cellPosition)
         {
             Control control = tableLayoutPanel1.GetControlFromPosition(cellPosition[0], cellPosition[1]);
+            tableLayoutPanel1.SuspendLayout();
             if (!noDeleting)
             {
                 DeleteMoveSignals();
@@ -83,6 +84,7 @@ namespace Nayttotyo
                         piecesInDanger.Add([cellPosition[0] + 1, cellPosition[1] - 1]);
                     }
                 }
+                tableLayoutPanel1.ResumeLayout();
                 return;
             }
             if (piece == "b_pawn")
@@ -122,6 +124,7 @@ namespace Nayttotyo
                         piecesInDanger.Add([cellPosition[0] + 1, cellPosition[1] + 1]);
                     }
                 }
+                tableLayoutPanel1.ResumeLayout();
                 return;
             }
             if (piece == "rook")
@@ -230,6 +233,7 @@ namespace Nayttotyo
                         break;
                     }
                 }
+                tableLayoutPanel1.ResumeLayout();
                 return;
             }
             if (piece == "knight")
@@ -370,6 +374,7 @@ namespace Nayttotyo
                         }
                     }
                 }
+                tableLayoutPanel1.ResumeLayout();
                 return;
             }
             if (piece == "bishop")
@@ -482,6 +487,7 @@ namespace Nayttotyo
                     }
                     else { break; }
                 }
+                tableLayoutPanel1.ResumeLayout();
                 return;
             }
             if (piece == "queen")
@@ -489,6 +495,7 @@ namespace Nayttotyo
                 ClickingPiece("rook", cellPosition);
                 noDeleting = true;
                 ClickingPiece("bishop", cellPosition);
+                tableLayoutPanel1.ResumeLayout();
                 return;
             }
             if (piece == "king")
@@ -520,6 +527,7 @@ namespace Nayttotyo
                         }
                     }
                 }
+                tableLayoutPanel1.ResumeLayout();
                 return;
             }
         }
@@ -570,7 +578,7 @@ namespace Nayttotyo
                     }
                     if (realCheckingPieces[0].Piece == 'H')
                     {
-                        break;
+                        //break;
                         for (int i = -1; i < 2; i++)
                         {
                             for (int j = -1; j < 2; j++)
