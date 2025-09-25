@@ -6,6 +6,32 @@ nappulaa ja sitten pinamalla jotain mahdollista ruutua liikkua, jotka ovat joko 
 tai punataustaisia vastustajan nappuloita. Aina kun jomman kumman kuningas on shakissa, kuninkaalle tulee punainen
 tausta. Peli päättyy shakkimattiin, jolloin Aloita peli-nappulan ylle ilmestyy sana "Checkmate".
 
+## Vuokaavio
+
+Tein vuokaavion funktiopohjaisesti ajattelematta C#:n olioita tai windowsformsin eventtejä. Suunnitelmat muuuttuivat
+koodia kirjoittaessa enkä katsonut vuokaaviost mallia koska tein ja tallensin sen toisella läppärillä.
+
+![drawio-vuokaavio](images/CSharpNayttotyonKaavio.drawio.png)
+
+
+
+
+## Esittelyvideot
+
+
+
+https://github.com/Kuuho12/CSharpNayttotyo/assets/106885770/679b5b90-92b6-4b26-b7af-ad4f36b73857
+
+
+
+https://github.com/Kuuho12/CSharpNayttotyo/assets/106885770/144f1956-71e8-4cd7-851e-0eaa89b05ef6
+
+
+
+https://github.com/Kuuho12/CSharpNayttotyo/assets/106885770/591a4ae6-de84-4ffe-af76-14e316c17354
+
+
+
 ## Koodin esittely
 
 Jokaisella nappulalla on hyvin samankaltaiset click-eventhandlerit:
@@ -78,3 +104,12 @@ Jos shakittavia nappuloita on enemmän kuin yksi, niin funktio tarkistaa vain on
 funktio palaudu missään vaiheessa niin "Checkmate" teksti ilmestyy ja koska jokainen mahdollinen liike jättäisi kuniinkaan
 shakkiin ei mitään liikettä voi enää suorittaa. Peli on päättynyt ja sen voi aloittaa uudestaan käynistämällä ohjelma
 uudestaan.
+
+## Jatkokehitysideat
+
+Kun koodissa testataan joutuisiko oma kuninkaasi shakkiin jos sitä liikutetaan johonkin ruutuun IsGonnaCheck-funktiolla, 
+koodi oikeasti siirtää hetken ajaksi nappulan siihen ruutuun, tuhlaten paljon tehoa. Tämä kannattaisi muuttaa, eikä
+IsGonnaCheck-funktiota kannattaisi muutenkaan spammia joka ruudulle. Erikoissiirrot tornitus, en passant ja sotilaan
+parantaminen kuningattareksi voisi lisätä peliin. Pelitulokset voisi tallentaa tiedostoon. Peliin voisi lisätä myös
+kellot kummallenkin pelaajalle, josta kuluu aikaa omalla vuorolla ja kellon ajan loppuessa häviäisit. Myös "Pelaa'
+uudestaan"-nappula olisi hyvä lisäys.
