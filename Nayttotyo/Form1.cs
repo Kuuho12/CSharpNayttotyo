@@ -12,7 +12,13 @@ namespace Nayttotyo
         public bool isWhitesTurn = false;
         //public Control LastWhiteMovedPiece = null;
         //public Control LastBlackMovedPiece = null;
-        public double turnNumber = 0.5;
+        public bool hasWhiteKingMoved = false;
+        public bool hasBlackKingMoved = false;
+        public bool hasWhiteRook1Moved = false;
+        public bool hasWhiteRook2Moved = false;
+        public bool hasBlackRook1Moved = false;
+        public bool hasBlackRook2Moved = false;
+        //public double turnNumber = 0.5;
         public List<int[]> occupiedTiles = new List<int[]>();
         //public TableLayoutPanel tableControlsCopy = new TableLayoutPanel();
         public List<int[]> piecesInDanger = new List<int[]>();
@@ -508,6 +514,40 @@ namespace Nayttotyo
             }
             if (piece == "king")
             {
+                if (isWhitesTurn)
+                {
+                    if (!hasWhiteKingMoved && !hasWhiteRook2Moved && tableLayoutPanel1.GetControlFromPosition(5, 7) == null && tableLayoutPanel1.GetControlFromPosition(6, 7) == null)
+                    {
+                        if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [6, 7])))
+                        {
+                            CreateCastleDot([6, 7]);
+                        }
+                    }
+                    if (!hasWhiteKingMoved && !hasWhiteRook1Moved && (tableLayoutPanel1.GetControlFromPosition(3, 7) == null) && (tableLayoutPanel1.GetControlFromPosition(2, 7) == null) && (tableLayoutPanel1.GetControlFromPosition(1, 7) == null))
+                    {
+                        if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [2, 7])))
+                        {
+                            CreateCastleDot([2, 7]);
+                        }
+                    }
+                }
+                else
+                {
+                    if (!hasBlackKingMoved && !hasBlackRook2Moved && tableLayoutPanel1.GetControlFromPosition(5, 0) == null && tableLayoutPanel1.GetControlFromPosition(6, 0) == null)
+                    {
+                        if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [6, 0])))
+                        {
+                            CreateCastleDot([6, 0]);
+                        }
+                    }
+                    if (!hasBlackKingMoved && !hasBlackRook1Moved && tableLayoutPanel1.GetControlFromPosition(3, 0) == null && tableLayoutPanel1.GetControlFromPosition(2, 0) == null && tableLayoutPanel1.GetControlFromPosition(1, 0) == null)
+                    {
+                        if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [2, 0])))
+                        {
+                            CreateCastleDot([2, 0]);
+                        }
+                    }
+                }
                 for (int i = -1; i < 2; i++)
                 {
                     for (int j = -1; j < 2; j++)
@@ -1654,15 +1694,64 @@ namespace Nayttotyo
             dotNumber++;
 
         }
+        public void CreateCastleDot(int[] Position)
+        {
+            PictureBox DotCopy = new PictureBox();
+            DotCopy = new PictureBox();
+            DotCopy.Name = "Dot" + dotNumber;
+            DotCopy.Image = imageList1.Images[1];
+            DotCopy.BackColor = Color.Transparent;
+            DotCopy.SizeMode = PictureBoxSizeMode.CenterImage;
+            DotCopy.Visible = true;
+            DotCopy.Click += new EventHandler(CastleDotMove);
+            DotCopy.Tag = "XX";
+            tableLayoutPanel1.Controls.Add(DotCopy);
+            tableLayoutPanel1.SetCellPosition(DotCopy, new TableLayoutPanelCellPosition(Position[0], Position[1]));
+            dotNumber++;
+
+        }
         public void DotMove(object sender, EventArgs e)
         {
             Moving((Control)sender);
+        }
+        public void CastleDotMove(object sender, EventArgs e)
+        {
+            Moving((Control)sender);
+            isWhitesTurn = !isWhitesTurn;
+            TableLayoutPanelCellPosition senderCellPosition = tableLayoutPanel1.GetCellPosition((Control)sender);
+            switch(senderCellPosition.Column, senderCellPosition.Row)
+            {
+                case(6,7):
+                    clickedPiece = WhiteRook2;
+                    CreateDot([5, 7]);
+                    Moving(tableLayoutPanel1.GetControlFromPosition(5, 7));
+                    break;
+                case(2,7):
+                    clickedPiece = WhiteRook1;
+                    CreateDot([3, 7]);
+                    Moving(tableLayoutPanel1.GetControlFromPosition(3, 7));
+                    break;
+                case (6, 0):
+                    clickedPiece = BlackRook2;
+                    CreateDot([5, 0]);
+                    Moving(tableLayoutPanel1.GetControlFromPosition(5, 0));
+                    break;
+                case (2, 0):
+                    clickedPiece = BlackRook1;
+                    CreateDot([3, 0]);
+                    Moving(tableLayoutPanel1.GetControlFromPosition(3, 0));
+                    break;
+                default:
+                    return;
+            }
+                
         }
         public void Moving(Control control)
         {
             IsInCheck = false;
             DeleteMoveSignals();
             char[] name = control.Name.ToCharArray();
+            string clickedPieceName = clickedPiece.Name;
             if ((name[0] == 'B' && isWhitesTurn) || (name[0] == 'W' && !isWhitesTurn))
             {
                 tableLayoutPanel1.Controls.Remove(control); tableLayoutPanel1.Controls.Remove(control);
@@ -1684,6 +1773,18 @@ namespace Nayttotyo
                     piecesInDanger.Add([tableLayoutPanel1.GetColumn(WhiteKing), tableLayoutPanel1.GetRow(WhiteKing)]);
                     IsCheckmate(WhiteKing, [tableLayoutPanel1.GetColumn(WhiteKing), tableLayoutPanel1.GetRow(WhiteKing)]);
                 }
+                if(clickedPieceName == "BlackKing")
+                {
+                    hasBlackKingMoved = true;
+                }
+                if(clickedPieceName == "BlackRook1")
+                {
+                    hasBlackRook1Moved = true;
+                }
+                if(clickedPieceName == "BlackRook2")
+                {
+                    hasBlackRook2Moved = true;
+                }
             }
             if (isWhitesTurn)
             {
@@ -1694,7 +1795,20 @@ namespace Nayttotyo
                     piecesInDanger.Add([tableLayoutPanel1.GetColumn(BlackKing), tableLayoutPanel1.GetRow(BlackKing)]);
                     IsCheckmate(BlackKing, [tableLayoutPanel1.GetColumn(BlackKing), tableLayoutPanel1.GetRow(BlackKing)]);
                 }
+                if (clickedPieceName == "WhiteKing")
+                {
+                    hasWhiteKingMoved = true;
+                }
+                if (clickedPieceName == "WhuteRook1")
+                {
+                    hasWhiteRook1Moved = true;
+                }
+                if (clickedPieceName == "WhiteRook2")
+                {
+                    hasWhiteRook2Moved = true;
+                }
             }
+            
             isWhitesTurn = !isWhitesTurn;
 
         }
