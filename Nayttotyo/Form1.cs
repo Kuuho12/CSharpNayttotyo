@@ -252,6 +252,7 @@ namespace Nayttotyo
                         if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [cellPosition[0] + 2, cellPosition[1] - 1])))
                         {
                             tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 2, cellPosition[1] - 1).BackColor = Color.Red;
+                            piecesInDanger.Add([cellPosition[0] + 2, cellPosition[1] - 1]);
                         }
                     }
                 }
@@ -269,6 +270,7 @@ namespace Nayttotyo
                         if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [cellPosition[0] + 2, cellPosition[1] + 1])))
                         {
                             tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 2, cellPosition[1] + 1).BackColor = Color.Red;
+                            piecesInDanger.Add([cellPosition[0] + 2, cellPosition[1] + 1]);
                         }
                     }
                 }
@@ -286,6 +288,7 @@ namespace Nayttotyo
                         if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 2, cellPosition[1] - 1])))
                         {
                             tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 2, cellPosition[1] - 1).BackColor = Color.Red;
+                            piecesInDanger.Add([cellPosition[0] - 2, cellPosition[1] - 1]);
                         }
                     }
                 }
@@ -303,6 +306,7 @@ namespace Nayttotyo
                         if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 2, cellPosition[1] + 1])))
                         {
                             tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 2, cellPosition[1] + 1).BackColor = Color.Red;
+                            piecesInDanger.Add([cellPosition[0] - 2, cellPosition[1] + 1]);
                         }
                     }
                 }
@@ -320,6 +324,7 @@ namespace Nayttotyo
                         if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 1, cellPosition[1] + 2])))
                         {
                             tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1] + 2).BackColor = Color.Red;
+                            piecesInDanger.Add([cellPosition[0] - 1, cellPosition[1] + 2]);
                         }
                     }
                 }
@@ -337,6 +342,7 @@ namespace Nayttotyo
                         if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [cellPosition[0] + 1, cellPosition[1] + 2])))
                         {
                             tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1] + 2).BackColor = Color.Red;
+                            piecesInDanger.Add([cellPosition[0] + 1, cellPosition[1] + 2]);
                         }
                     }
                 }
@@ -354,6 +360,7 @@ namespace Nayttotyo
                         if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 1, cellPosition[1] - 2])))
                         {
                             tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1] - 2).BackColor = Color.Red;
+                            piecesInDanger.Add([cellPosition[0] - 1, cellPosition[1] - 2]);
                         }
                     }
                 }
@@ -371,6 +378,7 @@ namespace Nayttotyo
                         if (!(IsGonnaCheck(king, [cellPosition[0], cellPosition[1]], [cellPosition[0] + 1, cellPosition[1] - 2])))
                         {
                             tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1] - 2).BackColor = Color.Red;
+                            piecesInDanger.Add([cellPosition[0] + 1, cellPosition[1] - 2]);
                         }
                     }
                 }
