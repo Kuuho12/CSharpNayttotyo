@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Formats.Asn1;
 using System.Linq;
+using System.Numerics;
 using System.Text.Json.Serialization.Metadata;
 using System.Windows.Forms;
 namespace Nayttotyo
@@ -18,6 +19,8 @@ namespace Nayttotyo
         public bool hasWhiteRook2Moved = false;
         public bool hasBlackRook1Moved = false;
         public bool hasBlackRook2Moved = false;
+        public List<Control> startingControls = new List<Control>();
+        public List<int[]> startingPositions = new List<int[]>();
         //public double turnNumber = 0.5;
         public List<int[]> occupiedTiles = new List<int[]>();
         //public TableLayoutPanel tableControlsCopy = new TableLayoutPanel();
@@ -33,9 +36,10 @@ namespace Nayttotyo
             foreach (Control i in tableLayoutPanel1.Controls)
             {
                 occupiedTiles.Add([tableLayoutPanel1.GetColumn(i), tableLayoutPanel1.GetRow(i)]);
+                startingControls.Add(i);
             }
+            startingPositions = occupiedTiles.ToList();
         }
-
         public void ClickingPiece(string piece, int[] cellPosition)
         {
             Control control = tableLayoutPanel1.GetControlFromPosition(cellPosition[0], cellPosition[1]);
@@ -790,6 +794,8 @@ namespace Nayttotyo
                     break;
             }
             label1.Text = "CheckMate";
+            button1.Enabled = true;
+            //gameIsOn = false;
             //Shakki Matti
         }
         public bool CanBlock(int[] position, char color)
@@ -1887,8 +1893,32 @@ namespace Nayttotyo
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if(gameIsOn)
+            {
+                DeleteMoveSignals();
+                tableLayoutPanel1.SuspendLayout();
+                tableLayoutPanel1.Controls.Clear();
+                for (int i = 0; i < startingControls.Count; i++) {
+                    tableLayoutPanel1.Controls.Add(startingControls[i]);
+                    tableLayoutPanel1.SetColumn(startingControls[i], startingPositions[i][0]);
+                    tableLayoutPanel1.SetRow(startingControls[i], startingPositions[i][1]);
+                }
+                noDeleting = false;
+                hasWhiteKingMoved = false;
+                hasBlackKingMoved = false;
+                hasWhiteRook1Moved = false;
+                hasWhiteRook2Moved = false;
+                hasBlackRook1Moved = false;
+                hasBlackRook2Moved = false;
+                occupiedTiles = startingPositions.ToList();
+                clickedPiece = new Control();
+                IsInCheck = false;
+            tableLayoutPanel1.ResumeLayout();
+            }
             gameIsOn = true;
             isWhitesTurn = true;
+            button1.Enabled = false;
+            label1.Text = "";
         }
         public void Turn()
         {
