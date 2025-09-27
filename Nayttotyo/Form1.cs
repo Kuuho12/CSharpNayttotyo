@@ -19,6 +19,7 @@ namespace Nayttotyo
         public bool hasWhiteRook2Moved = false;
         public bool hasBlackRook1Moved = false;
         public bool hasBlackRook2Moved = false;
+        public string enpassantName = null;
         public List<Control> startingControls = new List<Control>();
         public List<int[]> startingPositions = new List<int[]>();
         //public double turnNumber = 0.5;
@@ -27,7 +28,7 @@ namespace Nayttotyo
         public List<int[]> piecesInDanger = new List<int[]>();
         public int dotNumber = 0;
         public int dotHide = 0;
-        public Control clickedPiece = new Control();
+        public Control clickedPiece = new Control(); //Osuvampi nimi clickedPiecelle olisi possiblyMovingPiece
         public bool IsInCheck = false;
         public Form1()
         {
@@ -56,28 +57,55 @@ namespace Nayttotyo
                 king = WhiteKing;
             }
             else { king = BlackKing; }
-            int ekabonus = 0;
             if (piece == "w_pawn")
             {
                 if (cellPosition[1] == 6)
                 {
-                    ekabonus++;
-                }
-                for (int i = 1; i < 2 + ekabonus; i++)
-                {
-                    if (!(occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0], cellPosition[1] - i]))) && cellPosition[1] - i > -1)
+                    if (!(occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0], cellPosition[1] - 2]))))
                     {
-                        if (!(IsGonnaCheck(WhiteKing, [cellPosition[0], cellPosition[1]], [cellPosition[0], cellPosition[1] - i])))
+                        if (!(IsGonnaCheck(WhiteKing, [cellPosition[0], cellPosition[1]], [cellPosition[0], cellPosition[1] - 2])))
                         {
-                            CreateDot([cellPosition[0], cellPosition[1] - i]);
+                            CreateLongDot([cellPosition[0], cellPosition[1] - 2]);
                         }
                     }
-                    else
-                    {
-                        break;
-                    }
-
                 }
+                if (enpassantName != null) {
+                    if (tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1]) != null) {
+                        if (tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1]).Name == enpassantName)
+                        {
+                            if (!(occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0] + 1, cellPosition[1] - 1]))))
+                            {
+                                //tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1]).Visible = false;
+                                if (!(IsGonnaCheck(WhiteKing, [cellPosition[0], cellPosition[1]], [cellPosition[0] + 1, cellPosition[1] - 1])))
+                                {
+                                    CreateEnPassantDot([cellPosition[0] + 1, cellPosition[1] - 1]);
+                                }
+                                //tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1]).Visible = true;
+                            }
+                        }
+                    }
+                    if (tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1]) != null) {
+                        if (tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1]).Name == enpassantName)
+                        {
+                            if (!(occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0] - 1, cellPosition[1] - 1]))))
+                            {
+                                //tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1]).Visible = false;
+                                if (!(IsGonnaCheck(WhiteKing, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 1, cellPosition[1] - 1])))
+                                {
+                                    CreateEnPassantDot([cellPosition[0] - 1, cellPosition[1] - 1]);
+                                }
+                                //tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1]).Visible = true;
+                            }
+                        }
+                    }
+                }
+                    if (!(occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0], cellPosition[1] - 1]))) && cellPosition[1] - 1 > -1)
+                    {
+                        if (!(IsGonnaCheck(WhiteKing, [cellPosition[0], cellPosition[1]], [cellPosition[0], cellPosition[1] - 1])))
+                        {
+                            CreateDot([cellPosition[0], cellPosition[1] - 1]);
+                        }
+                    }
                 if ((occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0] - 1, cellPosition[1] - 1]))) && tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1] - 1).Tag.ToString()[0] == 'B')
                 {
                     if (!(IsGonnaCheck(WhiteKing, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 1, cellPosition[1] - 1])))
@@ -101,23 +129,50 @@ namespace Nayttotyo
             {
                 if (cellPosition[1] == 1)
                 {
-                    ekabonus++;
-                }
-                for (int i = 1; i < 2 + ekabonus; i++)
-                {
-                    if (!(occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0], cellPosition[1] + i]))) && cellPosition[1] + i < 7)
+                    if (!(occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0], cellPosition[1] + 2]))))
                     {
-                        if (!(IsGonnaCheck(BlackKing, [cellPosition[0], cellPosition[1]], [cellPosition[0], cellPosition[1] + i])))
+                        if (!(IsGonnaCheck(BlackKing, [cellPosition[0], cellPosition[1]], [cellPosition[0], cellPosition[1] + 2])))
                         {
-                            CreateDot([cellPosition[0], cellPosition[1] + i]);
+                            CreateLongDot([cellPosition[0], cellPosition[1] + 2]);
                         }
                     }
-                    else
-                    {
-                        break;
-                    }
-
                 }
+                if (enpassantName != null)
+                {
+                    if (tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1]) != null)
+                    {
+                        if (tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1]).Name == enpassantName)
+                        {
+                            if (!(occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0] + 1, cellPosition[1] + 1]))))
+                            {
+                                if (!(IsGonnaCheck(WhiteKing, [cellPosition[0], cellPosition[1]], [cellPosition[0] + 1, cellPosition[1] + 1])))
+                                {
+                                    CreateEnPassantDot([cellPosition[0] + 1, cellPosition[1] + 1]);
+                                }
+                            }
+                        }
+                    }
+                    if (tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1]) != null)
+                    {
+                        if (tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1]).Name == enpassantName)
+                        {
+                            if (!(occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0] - 1, cellPosition[1] + 1]))))
+                            {
+                                if (!(IsGonnaCheck(WhiteKing, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 1, cellPosition[1] + 1])))
+                                {
+                                    CreateEnPassantDot([cellPosition[0] - 1, cellPosition[1] + 1]);
+                                }
+                            }
+                        }
+                    }
+                }
+                if (!(occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0], cellPosition[1] + 1]))) && cellPosition[1] + 1 < 7)
+                    {
+                        if (!(IsGonnaCheck(BlackKing, [cellPosition[0], cellPosition[1]], [cellPosition[0], cellPosition[1] + 1])))
+                        {
+                            CreateDot([cellPosition[0], cellPosition[1] + 1]);
+                        }
+                    }
                 if ((occupiedTiles.Any(p => p.SequenceEqual([cellPosition[0] - 1, cellPosition[1] + 1]))) && tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1] + 1).Tag.ToString()[0] == 'W')
                 {
                     if (!(IsGonnaCheck(BlackKing, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 1, cellPosition[1] + 1])))
@@ -1716,6 +1771,38 @@ namespace Nayttotyo
             dotNumber++;
 
         }
+        public void CreateLongDot(int[] Position)
+        {
+            PictureBox DotCopy = new PictureBox();
+            DotCopy = new PictureBox();
+            DotCopy.Name = "Dot" + dotNumber;
+            DotCopy.Image = imageList1.Images[1];
+            DotCopy.BackColor = Color.Transparent;
+            DotCopy.SizeMode = PictureBoxSizeMode.CenterImage;
+            DotCopy.Visible = true;
+            DotCopy.Click += new EventHandler(LongDotMove);
+            DotCopy.Tag = "XX";
+            tableLayoutPanel1.Controls.Add(DotCopy);
+            tableLayoutPanel1.SetCellPosition(DotCopy, new TableLayoutPanelCellPosition(Position[0], Position[1]));
+            dotNumber++;
+
+        }
+        public void CreateEnPassantDot(int[] Position)
+        {
+            PictureBox DotCopy = new PictureBox();
+            DotCopy = new PictureBox();
+            DotCopy.Name = "Dot" + dotNumber;
+            DotCopy.Image = imageList1.Images[1];
+            DotCopy.BackColor = Color.Transparent;
+            DotCopy.SizeMode = PictureBoxSizeMode.CenterImage;
+            DotCopy.Visible = true;
+            DotCopy.Click += new EventHandler(EnPassantDotMove);
+            DotCopy.Tag = "XX";
+            tableLayoutPanel1.Controls.Add(DotCopy);
+            tableLayoutPanel1.SetCellPosition(DotCopy, new TableLayoutPanelCellPosition(Position[0], Position[1]));
+            dotNumber++;
+
+        }
         public void DotMove(object sender, EventArgs e)
         {
             Moving((Control)sender);
@@ -1751,6 +1838,19 @@ namespace Nayttotyo
                     return;
             }
                 
+        }
+        public void LongDotMove(object sender, EventArgs e)
+        {
+            Moving((Control)sender);
+            enpassantName = clickedPiece.Name;
+        }
+        public void EnPassantDotMove(object sender, EventArgs e)
+        {
+            Control control = tableLayoutPanel1.Controls.Find(enpassantName, false)[0];
+            occupiedTiles.RemoveAll(s => s.SequenceEqual([tableLayoutPanel1.GetColumn(control), tableLayoutPanel1.GetRow(control)]));
+            //occupiedTiles.Remove([tableLayoutPanel1.GetColumn(control), tableLayoutPanel1.GetRow(control)]); Ei hajuakaan miksi tämä ei toiminut
+            tableLayoutPanel1.Controls.Remove(control);
+            Moving((Control)sender);
         }
         public void Moving(Control control)
         {
@@ -1814,7 +1914,7 @@ namespace Nayttotyo
                     hasWhiteRook2Moved = true;
                 }
             }
-            
+            enpassantName = null;
             isWhitesTurn = !isWhitesTurn;
 
         }

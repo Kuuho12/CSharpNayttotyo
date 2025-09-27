@@ -1,10 +1,10 @@
 # Shakki
 
-Tämä on peli on klassinen shakki ilman erikoissiirtoa en passant, eikä sotilaita voi muuttaa toisiksi nappuloiksi 
-viemellä ne laudan päähän. Peli alkaa, kun painaa Aloite peli-napista. Nappuloita liikutetaan painamalla nappulaa 
-ja sitten pinamalla jotain mahdollista ruutua liikkua, jotka ovat joko pisteellä merkittyjä tyhjiä ruutuja tai 
-punataustaisia vastustajan nappuloita. Aina kun jomman kumman kuningas on shakissa, kuninkaalle tulee punainen tausta. 
-Peli päättyy shakkimattiin, jolloin Aloita peli-nappulan ylle ilmestyy sana "Checkmate".
+Tämä on peli on klassinen shakki ilman ett sotilaita voi muuttaa toisiksi nappuloiksi viemellä ne laudan päähän. Peli 
+alkaa, kun painaa Aloita peli-napista. Nappuloita liikutetaan painamalla nappulaa ja sitten pinamalla jotain mahdollista 
+ruutua liikkua, jotka ovat joko pisteellä merkittyjä tyhjiä ruutuja tai punataustaisia vastustajan nappuloita. Aina kun 
+jomman kumman kuningas on shakissa, kuninkaalle tulee punainen tausta. Peli päättyy shakkimattiin, jolloin Aloita peli-
+nappulan ylle ilmestyy sana "Checkmate". Uuden pelin voi aloittaa painamalla Aloita peli-nappia uudestaan.
 
 ## Vuokaavio
 
@@ -19,7 +19,7 @@ koodia kirjoittaessa enkä katsonut vuokaaviost mallia koska tein ja tallensin s
 ## Esittelyvideot
 
 
-(Uusimmassa versioissa näyttö ei "näpähtele" yhtä paljon)
+(Uusimmassa versioissa näyttö ei "näpähtele" niin paljon kuin videossa)
 
 
 
@@ -112,7 +112,7 @@ uudestaan.
 
 Kun koodissa testataan joutuisiko oma kuninkaasi shakkiin jos sitä liikutetaan johonkin ruutuun IsGonnaCheck-funktiolla, 
 koodi oikeasti siirtää hetken ajaksi nappulan siihen ruutuun, tuhlaten paljon tehoa. Tämä kannattaisi muuttaa, eikä
-IsGonnaCheck-funktiota kannattaisi muutenkaan spammia joka ruudulle. Erikoissiirrot, en passant ja sotilaan parantaminen 
-kuningattareksi voisi lisätä peliin. Pelitulokset voisi tallentaa tiedostoon. Peliin voisi lisätä myös kellot 
+IsGonnaCheck-funktiota kannattaisi muutenkaan spammia joka ruudulle. Sotilaan parantaminen toiseksi nappulaksi viemällä 
+sen laudan toiseen laitaan voisi lisätä peliin. Pelitulokset voisi tallentaa tiedostoon. Peliin voisi lisätä myös kellot 
 kummallenkin pelaajalle, josta kuluu aikaa omalla vuorolla ja kellon ajan loppuessa häviäisit. Myös "Pelaa' uudestaan"-
 nappula olisi hyvä lisäys.
