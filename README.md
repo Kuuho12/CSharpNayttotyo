@@ -19,7 +19,7 @@ koodia kirjoittaessa enkä katsonut vuokaaviost mallia koska tein ja tallensin s
 ## Esittelyvideot
 
 
-(Uusimmassa versioissa näyttö ei "näpähtele" niin paljon kuin videossa)
+(Uusimmassa versioissa lauta ei välähtele niin paljon kuin videossa)
 
 
 
@@ -35,7 +35,7 @@ https://github.com/Kuuho12/CSharpNayttotyo/assets/106885770/591a4ae6-de84-4ffe-a
 
 
 
-## Koodin esittely
+## Koodin esittely (vanhentunut)
 
 Jokaisella nappulalla on hyvin samankaltaiset click-eventhandlerit:
 
