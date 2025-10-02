@@ -79,6 +79,8 @@ namespace Nayttotyo
                                 if (!(IsGonnaCheck(WhiteKing, clickedPiece, [cellPosition[0], cellPosition[1]], [cellPosition[0] + 1, cellPosition[1] - 1])))
                                 {
                                     CreateEnPassantDot([cellPosition[0] + 1, cellPosition[1] - 1]);
+                                    tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1]).BackColor = Color.Red;
+                                    piecesInDanger.Add([cellPosition[0] + 1, cellPosition[1]]);
                                 }
                                 //tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1]).Visible = true;
                             }
@@ -96,6 +98,8 @@ namespace Nayttotyo
                                     if (!(IsGonnaCheck(WhiteKing, clickedPiece, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 1, cellPosition[1] - 1])))
                                     {
                                         CreateEnPassantDot([cellPosition[0] - 1, cellPosition[1] - 1]);
+                                        tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1]).BackColor = Color.Red;
+                                        piecesInDanger.Add([cellPosition[0] - 1, cellPosition[1]]);
                                     }
                                     //tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1]).Visible = true;
                                 }
@@ -152,6 +156,8 @@ namespace Nayttotyo
                                 if (!(IsGonnaCheck(WhiteKing, clickedPiece, [cellPosition[0], cellPosition[1]], [cellPosition[0] + 1, cellPosition[1] + 1])))
                                 {
                                     CreateEnPassantDot([cellPosition[0] + 1, cellPosition[1] + 1]);
+                                    tableLayoutPanel1.GetControlFromPosition(cellPosition[0] + 1, cellPosition[1]).BackColor = Color.Red;
+                                    piecesInDanger.Add([cellPosition[0] + 1, cellPosition[1]]);
                                 }
                             }
                         }
@@ -167,6 +173,8 @@ namespace Nayttotyo
                                     if (!(IsGonnaCheck(WhiteKing, clickedPiece, [cellPosition[0], cellPosition[1]], [cellPosition[0] - 1, cellPosition[1] + 1])))
                                     {
                                         CreateEnPassantDot([cellPosition[0] - 1, cellPosition[1] + 1]);
+                                        tableLayoutPanel1.GetControlFromPosition(cellPosition[0] - 1, cellPosition[1]).BackColor = Color.Red;
+                                        piecesInDanger.Add([cellPosition[0] - 1, cellPosition[1]]);
                                     }
                                 }
                             }
@@ -650,7 +658,7 @@ namespace Nayttotyo
             List<checkingPiece> realCheckingPieces = new List<checkingPiece>(checkingPieces);
             char kingColor = king.Tag.ToString()[0];
             king.BackColor = Color.Red;
-            Control realClickedPiece = clickedPiece;
+            //Control realClickedPiece = clickedPiece;
             switch (realCheckingPieces.Count)
             {
                 case 1:
@@ -849,7 +857,6 @@ namespace Nayttotyo
             label1.Text = "Shakkimatti";
             button1.Enabled = true;
             //gameIsOn = false;
-            //Shakki Matti
         }
         public bool CanBlock(int[] position, char color)
         {
@@ -1469,8 +1476,6 @@ namespace Nayttotyo
         public List<checkingPiece> checkingPieces = new List<checkingPiece>();
         public bool DidCheck(int[] kingCellPosition)
         {
-            ResumeLayout(); //Nämä kaksi ovat korjaamassa bugia, jossa nappulat
-            SuspendLayout();//katosivat hetkeksi laudalta aiheuttaen errorina
             Control king = tableLayoutPanel1.GetControlFromPosition(kingCellPosition[0], kingCellPosition[1]);
             char kingColor = king.Name.ToCharArray()[0];
             char[] controlCharArray = [];
@@ -1887,6 +1892,7 @@ namespace Nayttotyo
         }
         public void EnPassantDotMove(object sender, EventArgs e)
         {
+            DeleteMoveSignals();
             Control control = tableLayoutPanel1.Controls.Find(enpassantName, false)[0];
             occupiedTiles.RemoveAll(s => s.SequenceEqual([tableLayoutPanel1.GetColumn(control), tableLayoutPanel1.GetRow(control)]));
             //occupiedTiles.Remove([tableLayoutPanel1.GetColumn(control), tableLayoutPanel1.GetRow(control)]); Ei hajuakaan miksi tämä ei toiminut
@@ -1911,6 +1917,7 @@ namespace Nayttotyo
                 tableLayoutPanel1.SetCellPosition(clickedPiece, tableLayoutPanel1.GetCellPosition(control)); tableLayoutPanel1.SetCellPosition(clickedPiece, tableLayoutPanel1.GetCellPosition(control));
                 occupiedTiles.Add([tableLayoutPanel1.GetCellPosition(control).Column, tableLayoutPanel1.GetCellPosition(control).Row]);
             }
+            tableLayoutPanel1.PerformLayout();
             if (!isWhitesTurn)
             {
                 if (DidCheck([tableLayoutPanel1.GetColumn(WhiteKing), tableLayoutPanel1.GetRow(WhiteKing)]))
