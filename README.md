@@ -16,10 +16,7 @@ koodia kirjoittaessa enkä katsonut vuokaaviost mallia koska tein ja tallensin s
 
 
 
-## Esittelyvideot
-
-
-(Uusimmassa versioissa lauta ei välähtele niin paljon kuin videossa)
+## Esittelyvideot (Vanhetuneet)
 
 
 
