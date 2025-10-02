@@ -647,7 +647,7 @@ namespace Nayttotyo
         }
         public void IsCheckmate(Control king, int[] cellPosition) //cellPosition on kuninkaan nykyinen sijainti
         {
-            List<checkingPiece> realCheckingPieces = checkingPieces;
+            List<checkingPiece> realCheckingPieces = new List<checkingPiece>(checkingPieces);
             char kingColor = king.Tag.ToString()[0];
             king.BackColor = Color.Red;
             Control realClickedPiece = clickedPiece;

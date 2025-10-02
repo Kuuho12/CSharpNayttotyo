@@ -35,7 +35,7 @@ https://github.com/Kuuho12/CSharpNayttotyo/assets/106885770/591a4ae6-de84-4ffe-a
 
 
 
-## Koodin esittely (vanhentunut)
+## Koodin esittely
 
 Jokaisella nappulalla on hyvin samankaltaiset click-eventhandlerit:
 
@@ -48,7 +48,8 @@ vuorolla ja kolmas kun vihollisen nappula syö oman nappula.
 
 ClickingPiece on pitkä funktio, joka näyttää mihin klikattava nappula voi liikkua luomalla pisteitä kartalle ja 
 muuttamalla napattavien vastustajan nappuloiden taustavärin punaiseksi. DeleteMoveSignals pyyhkii aiemmat tällaiset 
-merkinnät.
+merkinnät ja tableLayoutPanel1.SuspendLayout() estää näytön välähteleä, kun algoritmi siirtää hetkellisesti nappulan
+eri ruutuun tarkistaakseen, että siirto on sääntöjen mukainen eli ettei se shakita omaa kuningasta.
 
 ![screenshot](images/rook_closeup.png)
 
@@ -66,7 +67,7 @@ napattavaksi vaihtamalla sen taustaväriä punaiseksi.
 Eri nappuloiden liikkeiden hoitaminen vie paljon tilaa, tässä vain tornin liikkeiden hoito. Fuktio vie lähemmäs 500
 riviä tilaa.
 
-![screenshot](images/correct_isgonnacheck.png)
+![screenshot](images/isgonnacheck.png)
 
 IsGonnaCheck-funktio tekee muutoksia laudalla (tableLayoutPanel1) ja occupiedTiles-listaan kyseisen liikkeen mukaan ja
 tarkistaa sen jälkeen DidCheck-funktiolla johtaisiko liike oman kuninkaan shakkiin. Jos johtaa shakkiin, niin funktio
@@ -78,7 +79,9 @@ funktio on hidas.
 Moving-funktiota kutsutaan aina pistettä painettaessa tai napattavaa vastustajan nappulaa painettaessa. Aluksi
 suoritetaan DeleteMoveSignals, jonka jälkeen hoidetaan nappuloiden liikkeet laudalla ja muokataan
 occupiedTiles-lista paikkaansa pitäväksi. Sen jälkeen tarkistetaan shakitettiinko vastustajan kuningasta ja jos
-shakitettiin, niin syntyikö shakkimatti. Lopuksi vaihdetaan vuoroa muuttamalla globaalin isWhitesTurn-muuttujan arvoa.
+shakitettiin, niin syntyikö shakkimatti. Seuraavaksi jos kuningas tai torni liikkui, muutetaan globaalien muuttujien
+arvoa, jotta kyseisellä nappulalla ei voi enää tornittaa. Lopuksi vaihdetaan vuoroa muuttamalla globaalin isWhitesTurn
+-muuttujan arvoa.
 
 ![screenshot](images/did_check.png)
 
@@ -105,8 +108,8 @@ palauttavat truen ja palauttavat falsen funktion loppuun päästessä.
 
 Jos shakittavia nappuloita on enemmän kuin yksi, niin funktio tarkistaa vain onko kuninkaalle paettavaa ruutua. Jos 
 funktio palaudu missään vaiheessa niin "Checkmate" teksti ilmestyy ja koska jokainen mahdollinen liike jättäisi kuniinkaan
-shakkiin ei mitään liikettä voi enää suorittaa. Peli on päättynyt ja sen voi aloittaa uudestaan käynistämällä ohjelma
-uudestaan.
+shakkiin ei mitään liikettä voi enää suorittaa. Peli on päättynyt ja sen voi aloittaa uudestaan painamalla "Aloita peli" 
+-nappia uudestaan.
 
 ## Jatkokehitysideat
 
@@ -114,5 +117,4 @@ Kun koodissa testataan joutuisiko oma kuninkaasi shakkiin jos sitä liikutetaan 
 koodi oikeasti siirtää hetken ajaksi nappulan siihen ruutuun, tuhlaten paljon tehoa. Tämä kannattaisi muuttaa, eikä
 IsGonnaCheck-funktiota kannattaisi muutenkaan spammia joka ruudulle. Sotilaan parantaminen toiseksi nappulaksi viemällä 
 sen laudan toiseen laitaan voisi lisätä peliin. Pelitulokset voisi tallentaa tiedostoon. Peliin voisi lisätä myös kellot 
-kummallenkin pelaajalle, josta kuluu aikaa omalla vuorolla ja kellon ajan loppuessa häviäisit. Myös "Pelaa' uudestaan"-
-nappula olisi hyvä lisäys.
+kummallenkin pelaajalle, josta kuluu aikaa omalla vuorolla ja kellon ajan loppuessa häviäisit.
