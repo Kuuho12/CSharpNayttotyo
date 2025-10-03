@@ -4,7 +4,7 @@ Tämä on peli on klassinen shakki ilman ett sotilaita voi muuttaa toisiksi napp
 alkaa, kun painaa Aloita peli-napista. Nappuloita liikutetaan painamalla nappulaa ja sitten pinamalla jotain mahdollista 
 ruutua liikkua, jotka ovat joko pisteellä merkittyjä tyhjiä ruutuja tai punataustaisia vastustajan nappuloita. Aina kun 
 jomman kumman kuningas on shakissa, kuninkaalle tulee punainen tausta. Peli päättyy shakkimattiin, jolloin Aloita peli-
-nappulan ylle ilmestyy sana "Checkmate". Uuden pelin voi aloittaa painamalla Aloita peli-nappia uudestaan.
+nappulan ylle ilmestyy sana "Shakkimatti". Uuden pelin voi aloittaa painamalla Aloita peli-nappia uudestaan.
 
 ## Vuokaavio
 
